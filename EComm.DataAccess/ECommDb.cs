@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EComm.DataAccess;
 
-public class ECommDb : DbContext, IECommDb
+internal class ECommDb : DbContext, IECommDb
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -14,7 +14,7 @@ public class ECommDb : DbContext, IECommDb
 
     public async Task<IEnumerable<Product>> GetAllProducts()
     {
-        return await Products.ToListAsync();
+        return await Products.AsNoTracking().ToListAsync();    
     }
 
     public async Task<Product?> GetProduct(int id)
@@ -22,18 +22,22 @@ public class ECommDb : DbContext, IECommDb
         return await Products.FindAsync(id);
     }
 
-    public Task AddProduct(Product product)
+    public async Task AddProduct(Product product)
     {
-        throw new NotImplementedException();
+        Products.Add(product);
+        await SaveChangesAsync();
     }
 
-    public Task<bool> DeleteProduct(Product product)
+    public async Task<bool> DeleteProduct(Product product)
     {
-        throw new NotImplementedException();
+        Products.Remove(product);
+        var rowsAffected = await SaveChangesAsync();
+        return (rowsAffected > 0);
     }
 
-    public Task<bool> UpdateProduct(Product product)
+    public async Task<bool> UpdateProduct(Product product)
     {
-        throw new NotImplementedException();
+        var rowsAffected = await SaveChangesAsync();
+        return (rowsAffected > 0);
     }
 }

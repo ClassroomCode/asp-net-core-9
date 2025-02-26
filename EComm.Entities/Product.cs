@@ -1,4 +1,7 @@
-﻿namespace EComm.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EComm.Entities;
 
 public class Product
 {
