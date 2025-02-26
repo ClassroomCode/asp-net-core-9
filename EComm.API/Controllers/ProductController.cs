@@ -2,7 +2,8 @@
 
 namespace EComm.API.Controllers;
 
-public class ProductController : Controller
+[ApiController]
+public class ProductController(IECommDb db) : ControllerBase
 {
-
+    //
 }
