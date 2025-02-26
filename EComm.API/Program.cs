@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+
 builder.Services.AddScoped<IECommDb>(_ => ECommDbFactory.Create());
 
 builder.Services.AddEndpointsApiExplorer();

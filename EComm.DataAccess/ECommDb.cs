@@ -1,5 +1,6 @@
 ﻿using EComm.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace EComm.DataAccess;
 
@@ -8,6 +9,7 @@ internal class ECommDb : DbContext, IECommDb
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseInMemoryDatabase("EComm");
+        optionsBuilder.LogTo(Console.WriteLine);
     }
 
     public DbSet<Product> Products { get; set; }
