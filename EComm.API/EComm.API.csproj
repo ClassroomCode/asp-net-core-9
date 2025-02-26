@@ -9,6 +9,7 @@
 	  <PackageReference Include="NSwag.AspNetCore" Version="14.2.0" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\EComm.DataAccess\EComm.DataAccess.csproj" />
 	  <ProjectReference Include="..\EComm.Entities\EComm.Entities.csproj" />
 	</ItemGroup>
 </Project>

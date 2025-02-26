@@ -1,5 +1,5 @@
 global using EComm.Entities;
-using EComm.API;
+using EComm.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
