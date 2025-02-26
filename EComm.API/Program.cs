@@ -4,8 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ECommDb>(opt =>
-    opt.UseInMemoryDatabase("EComm"));
+builder.Services.AddScoped<IECommDb>(_ => ECommDbFactory.Create());
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApiDocument(config =>
@@ -19,14 +18,15 @@ var app = builder.Build();
 
 app.UseOpenApi();
 
-app.MapGet("/products", async (ECommDb db) => 
-    await db.Products.ToArrayAsync());
+app.MapGet("/products", async (IECommDb db) =>
+    await db.GetAllProducts());
 
-app.MapGet("/products/{id}", async (int id, ECommDb db) =>
-    await db.Products.FindAsync(id) is Product product
+app.MapGet("/products/{id}", async (int id, IECommDb db) =>
+    await db.GetProduct(id) is Product product
         ? Results.Ok(product)
         : Results.NotFound());
 
+/*
 using (var serviceScope = app.Services.CreateScope())
 {
     var services = serviceScope.ServiceProvider;
@@ -49,5 +49,6 @@ using (var serviceScope = app.Services.CreateScope())
     });
     await db.SaveChangesAsync();
 }
+*/
 
 app.Run();

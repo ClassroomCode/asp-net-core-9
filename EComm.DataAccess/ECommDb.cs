@@ -12,22 +12,22 @@ public class ECommDb : DbContext, IECommDb
 
     public DbSet<Product> Products { get; set; }
 
+    public async Task<IEnumerable<Product>> GetAllProducts()
+    {
+        return await Products.ToListAsync();
+    }
+
+    public async Task<Product?> GetProduct(int id)
+    {
+        return await Products.FindAsync(id);
+    }
+
     public Task AddProduct(Product product)
     {
         throw new NotImplementedException();
     }
 
     public Task<bool> DeleteProduct(Product product)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IEnumerable<Product>> GetAllProducts()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Product?> GetProduct(int id)
     {
         throw new NotImplementedException();
     }
