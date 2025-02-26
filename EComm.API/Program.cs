@@ -1,3 +1,4 @@
+global using EComm.Entities;
 using EComm.API;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,4 @@
-﻿namespace EComm.API;
+﻿namespace EComm.Entities;
 
 public class Product
 {

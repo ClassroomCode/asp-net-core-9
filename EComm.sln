@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EComm.API", "EComm.API\EComm.API.csproj", "{F363FE23-9988-4CD7-9A0F-047E02BAB7BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EComm.Entities", "EComm.Entities\EComm.Entities.csproj", "{9D6A2AF5-092F-46E5-897D-A90B3BED359D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +29,23 @@ Global
 		{F363FE23-9988-4CD7-9A0F-047E02BAB7BA}.Release|x64.Build.0 = Release|Any CPU
 		{F363FE23-9988-4CD7-9A0F-047E02BAB7BA}.Release|x86.ActiveCfg = Release|Any CPU
 		{F363FE23-9988-4CD7-9A0F-047E02BAB7BA}.Release|x86.Build.0 = Release|Any CPU
+		{9D6A2AF5-092F-46E5-897D-A90B3BED359D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D6A2AF5-092F-46E5-897D-A90B3BED359D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D6A2AF5-092F-46E5-897D-A90B3BED359D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9D6A2AF5-092F-46E5-897D-A90B3BED359D}.Debug|x64.Build.0 = Debug|Any CPU
+		{9D6A2AF5-092F-46E5-897D-A90B3BED359D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9D6A2AF5-092F-46E5-897D-A90B3BED359D}.Debug|x86.Build.0 = Debug|Any CPU
+		{9D6A2AF5-092F-46E5-897D-A90B3BED359D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D6A2AF5-092F-46E5-897D-A90B3BED359D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D6A2AF5-092F-46E5-897D-A90B3BED359D}.Release|x64.ActiveCfg = Release|Any CPU
+		{9D6A2AF5-092F-46E5-897D-A90B3BED359D}.Release|x64.Build.0 = Release|Any CPU
+		{9D6A2AF5-092F-46E5-897D-A90B3BED359D}.Release|x86.ActiveCfg = Release|Any CPU
+		{9D6A2AF5-092F-46E5-897D-A90B3BED359D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1D5D1E8D-1803-4ADE-99DF-C7DF92FEAE52}
 	EndGlobalSection
 EndGlobal
