@@ -1,5 +1,4 @@
 using EComm.API;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +9,7 @@ builder.Services.AddDbContext<ECommDb>(opt =>
 var app = builder.Build();
 
 app.MapGet("/products", async (ECommDb db) => 
-    await db.Products.ToArrayAsync());
+    await db.Products.ToListAsync());
 
 app.MapGet("/products/{id}", async (int id, ECommDb db) =>
     await db.Products.FindAsync(id) is Product product
