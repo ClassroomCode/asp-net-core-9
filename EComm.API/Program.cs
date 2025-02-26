@@ -6,10 +6,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ECommDb>(opt =>
     opt.UseInMemoryDatabase("EComm"));
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddOpenApiDocument(config =>
+{
+    config.DocumentName = "ECommAPI";
+    config.Title = "ECommAPI v1";
+    config.Version = "v1";
+});
+
 var app = builder.Build();
 
+app.UseOpenApi();
+
 app.MapGet("/products", async (ECommDb db) => 
-    await db.Products.ToListAsync());
+    await db.Products.ToArrayAsync());
 
 app.MapGet("/products/{id}", async (int id, ECommDb db) =>
     await db.Products.FindAsync(id) is Product product
