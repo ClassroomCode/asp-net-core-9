@@ -20,6 +20,10 @@ var app = builder.Build();
 
 app.UseOpenApi();
 
+app.MapControllers();
+
+
+/*
 app.MapGet("/products", async (IECommDb db) =>
     await db.GetAllProducts());
 
@@ -27,6 +31,7 @@ app.MapGet("/products/{id}", async (int id, IECommDb db) =>
     await db.GetProduct(id) is Product product
         ? Results.Ok(product)
         : Results.NotFound());
+*/
 
 /*
 using (var serviceScope = app.Services.CreateScope())

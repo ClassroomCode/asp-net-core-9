@@ -5,6 +5,6 @@ GET {{EComm.API_HostAddress}}/products
 ###
 
 @id=2
-GET {{EComm.API_HostAddress}}/products/{{id}}
+GET {{EComm.API_HostAddress}}/products/a
 
 ###
