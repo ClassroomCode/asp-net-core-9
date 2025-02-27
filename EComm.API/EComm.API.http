@@ -13,7 +13,7 @@ POST {{EComm.API_HostAddress}}/products
 Content-Type: application/json
 
 {
-  "productName":"xTesting"
+  "productName":"zMoretesting"
 }
 
 ###

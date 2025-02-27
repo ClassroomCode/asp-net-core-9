@@ -21,6 +21,8 @@ builder.Services.AddOpenApiDocument(config =>
 
 var app = builder.Build();
 
+app.UseExceptionHandler("/exception");
+
 app.UseOpenApi();
 
 app.MapControllers();
