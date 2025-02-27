@@ -4,6 +4,10 @@ namespace EComm.DataAccess;
 
 public static class ECommDbFactory
 {
-    public static IECommDb Create() =>
-        new ECommDb();
+    public static IECommDb Create(string connStr)
+    {
+        var db = new ECommDb(connStr);
+        db.Database.EnsureCreated();
+        return db;
+    }
 }

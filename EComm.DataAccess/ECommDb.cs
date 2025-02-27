@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace EComm.DataAccess;
 
-internal class ECommDb : DbContext, IECommDb
+internal class ECommDb(string connStr) : DbContext, IECommDb
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseInMemoryDatabase("EComm");
+        optionsBuilder.UseNpgsql(connStr);
         optionsBuilder.LogTo(Console.WriteLine);
     }
 

@@ -6,7 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IECommDb>(_ => ECommDbFactory.Create());
+var connStr = builder.Configuration.GetConnectionString("EComm");
+if (connStr is null) throw new ApplicationException("Database connection string not found");
+
+builder.Services.AddScoped<IECommDb>(_ => ECommDbFactory.Create(connStr));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApiDocument(config =>
