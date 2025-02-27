@@ -25,6 +25,15 @@ public class ProductController(IECommDb db) : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreateProduct(Product product)
     {
+        if (product.ProductName.StartsWith("z"))
+        {
+            ModelState.AddModelError("name", "Need a name!");
+        }
+        if (!ModelState.IsValid)
+        {
+            return ValidationProblem();
+        }
+
         await db.AddProduct(product);
         return CreatedAtAction("GetProduct", new { id = product.Id }, product);
     }
