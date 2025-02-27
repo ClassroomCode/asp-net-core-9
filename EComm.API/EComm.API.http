@@ -4,7 +4,16 @@ GET {{EComm.API_HostAddress}}/products
 
 ###
 
-@id=2
-GET {{EComm.API_HostAddress}}/products/a
+@id=1
+GET {{EComm.API_HostAddress}}/products/{{id}}
+
+###
+
+POST {{EComm.API_HostAddress}}/products
+Content-Type: application/json
+
+{
+  "productName":"Test 3"
+}
 
 ###
