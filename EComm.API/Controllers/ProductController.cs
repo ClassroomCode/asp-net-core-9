@@ -3,7 +3,7 @@
 namespace EComm.API.Controllers;
 
 [ApiController]
-public class ProductController(IECommDb db) : ControllerBase
+public class ProductController(ILogger<ProductController> logger, IECommDb db) : ControllerBase
 {
     [HttpGet("/products")]
     [ProducesResponseType(StatusCodes.Status200OK)]
