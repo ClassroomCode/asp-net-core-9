@@ -7,7 +7,7 @@ namespace EComm.API.Controllers;
 public class ProductController(ILogger<ProductController> logger, IECommDb db) : ControllerBase
 {
     [HttpGet("/products")]
-    [Authorize(Policy = "AdminsOnly")]
+    //[Authorize(Policy = "AdminsOnly")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<List<Product>>> GetAllProducts() =>
         (await db.GetAllProducts()).ToList();
