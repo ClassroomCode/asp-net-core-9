@@ -1,14 +1,16 @@
 using System.Diagnostics;
+using EComm.Entities;
 using Microsoft.AspNetCore.Mvc;
-using EComm.MvcUI.Models;
 
-namespace EComm.MvcUI.Controllers;
+namespace EComm.MvcUI.Models;
 
-public class HomeController(ILogger<HomeController> logger) : Controller
+public class HomeController(IECommDb db) : Controller
 {
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var r = await db.GetAllProducts();
+
+        return View(r);
     }
 
     public IActionResult Privacy()
