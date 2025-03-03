@@ -16,7 +16,7 @@ internal class ECommDb(string connStr) : DbContext, IECommDb
 
     public async Task<IEnumerable<Product>> GetAllProducts()
     {
-        return await Products.AsNoTracking().ToListAsync();    
+        return await Products.AsNoTracking().ToListAsync();  
     }
 
     public async Task<Product?> GetProduct(int id)

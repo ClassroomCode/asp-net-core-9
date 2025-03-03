@@ -16,7 +16,7 @@ namespace EComm.Tests
             var controller = new ProductController(new NullLogger<ProductController>(), db);
 
             // Act
-            var r = controller.GetProduct(2);
+            var r = await controller.GetProduct(2);
 
             // Assert
             Assert.NotNull(r.Result);
