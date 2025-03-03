@@ -1,9 +1,13 @@
 global using EComm.Entities;
+using EComm.API;
+using EComm.API.Auth;
 using EComm.DataAccess;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.Services.AddControllers();
 
@@ -20,9 +24,21 @@ builder.Services.AddOpenApiDocument(config =>
     config.Version = "v1";
 });
 
+builder.Services.AddAuthentication()
+    .AddScheme<AuthenticationSchemeOptions, MyCustomAuthHandler>
+        ("MyCustomAuth", options => { });
+
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("AdminsOnly", policy =>
+        policy.RequireClaim(ClaimTypes.Role, "Admin"));
+});
+
 var app = builder.Build();
 
 app.UseExceptionHandler("/exception");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseOpenApi();
 
@@ -65,3 +81,5 @@ using (var serviceScope = app.Services.CreateScope())
 */
 
 app.Run();
+
+public partial class Program { }

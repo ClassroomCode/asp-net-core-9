@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EComm.API.Controllers;
 
@@ -6,6 +7,7 @@ namespace EComm.API.Controllers;
 public class ProductController(ILogger<ProductController> logger, IECommDb db) : ControllerBase
 {
     [HttpGet("/products")]
+    [Authorize(Policy = "AdminsOnly")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<List<Product>>> GetAllProducts() =>
         (await db.GetAllProducts()).ToList();
@@ -73,6 +75,7 @@ public class ProductController(ILogger<ProductController> logger, IECommDb db) :
         else
         {
             await db.DeleteProduct(existingProduct);
+            logger.LogInformation("Product {name} deleted", existingProduct.ProductName);
             return NoContent();
         }
     }
