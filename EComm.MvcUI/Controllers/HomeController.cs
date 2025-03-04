@@ -6,11 +6,9 @@ namespace EComm.MvcUI.Models;
 
 public class HomeController(IECommDb db) : Controller
 {
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
-        var r = await db.GetAllProducts();
-
-        return View(r);
+        return View();
     }
 
     public IActionResult Privacy()
