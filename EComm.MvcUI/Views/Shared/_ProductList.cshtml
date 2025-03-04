@@ -7,9 +7,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
@@ -28,23 +25,21 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                <a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id">
+                    @item.ProductName
+                </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
+                @Html.DisplayFor(_ => item.UnitPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UnitPrice)
+                @Html.DisplayFor(_ => item.Package)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Package)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDiscontinued)
+                @Html.DisplayFor(_ => item.IsDiscontinued)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
