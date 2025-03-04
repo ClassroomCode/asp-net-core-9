@@ -23,7 +23,7 @@ public class Product : IValidatableObject
         var retVal = new List<ValidationResult>();
         if (ProductName.StartsWith("x"))
         {
-            retVal.Add(new ValidationResult("BAD"));
+            retVal.Add(new ValidationResult("BAD", new List<string> { "ProductName" } ));
         }
         return retVal;
     }

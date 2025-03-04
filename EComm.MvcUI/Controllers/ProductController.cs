@@ -48,6 +48,7 @@ public class ProductController(IECommDb db) : Controller
         existingProduct.UnitPrice = product.UnitPrice;
         existingProduct.Package = product.Package;
         existingProduct.IsDiscontinued = product.IsDiscontinued;
+
         await db.UpdateProduct(existingProduct);
 
         return RedirectToAction("Details", new { id = id});
