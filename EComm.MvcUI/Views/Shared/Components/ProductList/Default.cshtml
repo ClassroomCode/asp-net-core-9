@@ -39,7 +39,7 @@
                 @Html.DisplayFor(_ => item.IsDiscontinued)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
