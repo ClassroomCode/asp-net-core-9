@@ -18,6 +18,10 @@ public class Product : IValidatableObject
     [Column("is_discontinued")]
     public bool IsDiscontinued { get; set; }
 
+    [Column("category_id")]
+    public int CategoryId { get; set; }
+    public Category? Category { get; set; }
+
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         var retVal = new List<ValidationResult>();

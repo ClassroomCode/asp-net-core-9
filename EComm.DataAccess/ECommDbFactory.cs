@@ -7,7 +7,8 @@ public static class ECommDbFactory
     public static IECommDb Create(string connStr)
     {
         var db = new ECommDb(connStr);
-        db.Database.EnsureCreated();
+        //db.Database.EnsureDeleted();
+        //db.Database.EnsureCreated();
         return db;
     }
 }

@@ -13,6 +13,7 @@ internal class ECommDb(string connStr) : DbContext, IECommDb
     }
 
     public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
     public async Task<IEnumerable<Product>> GetAllProducts()
     {
