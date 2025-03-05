@@ -1,6 +1,7 @@
 ﻿using EComm.Entities;
 using EComm.MvcUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Core.Types;
 using System.Threading.Tasks;
 
 namespace EComm.MvcUI.Controllers;
@@ -68,5 +69,35 @@ public class ProductController(IECommDb db) : Controller
         await db.UpdateProduct(existingProduct);
 
         return RedirectToAction("Details", new { id = id});
+    }
+
+    [HttpPost("product/addtocart")]
+    public async Task<IActionResult> AddToCart(int id, int quantity)
+    {
+        var product = await db.GetProduct(id);
+        if (product == null) return NotFound();
+        var totalCost = quantity * product.UnitPrice;
+
+        string message = $"You added {product.ProductName} " +
+                         $"(x {quantity}) to your cart " +
+                         $"at a total cost of {totalCost:C}.";
+
+        var cart = ShoppingCart.GetFromSession(HttpContext.Session);
+        var lineItem = cart.LineItems.SingleOrDefault(item => item.Product.Id == id);
+        if (lineItem != null)
+        {
+            lineItem.Quantity += quantity;
+        }
+        else
+        {
+            cart.LineItems.Add(new ShoppingCart.LineItem
+            {
+                Product = product,
+                Quantity = quantity
+            });
+        }
+        ShoppingCart.StoreInSession(cart, HttpContext.Session);
+
+        return PartialView("_AddedToCart", message);
     }
 }
