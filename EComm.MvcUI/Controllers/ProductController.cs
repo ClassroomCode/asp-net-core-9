@@ -29,14 +29,24 @@ public class ProductController(IECommDb db) : Controller
         }
         var categories = await db.GetAllCategories();
 
-        var vm = new ProductEditViewModel();
+        var vm = new ProductEditViewModel()
+        {
+            Id = product.Id,
+            ProductName = product.ProductName,
+            Package = product.Package,
+            IsDiscontinued = product.IsDiscontinued,
+            UnitPrice = product.UnitPrice,
+            CategoryId = product.CategoryId,
+            Category = product.Category,
+            Categories = categories
+        };
 
         return View(vm);
     }
 
     [HttpPost("product/edit/{id}")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, Product product)
+    public async Task<IActionResult> Edit(int id, ProductEditViewModel vm)
     {
         var existingProduct = await db.GetProduct(id);
         if (existingProduct is null)
@@ -45,13 +55,15 @@ public class ProductController(IECommDb db) : Controller
         }
         if (!ModelState.IsValid)
         {
-            return View(product);
+            vm.Categories = await db.GetAllCategories();
+            return View(vm);
         }
 
-        existingProduct.ProductName = product.ProductName;
-        existingProduct.UnitPrice = product.UnitPrice;
-        existingProduct.Package = product.Package;
-        existingProduct.IsDiscontinued = product.IsDiscontinued;
+        existingProduct.ProductName = vm.ProductName;
+        existingProduct.CategoryId = vm.CategoryId;
+        existingProduct.UnitPrice = vm.UnitPrice;
+        existingProduct.Package = vm.Package;
+        existingProduct.IsDiscontinued = vm.IsDiscontinued;
 
         await db.UpdateProduct(existingProduct);
 
