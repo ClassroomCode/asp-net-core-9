@@ -1,5 +1,6 @@
 ﻿using EComm.Entities;
 using EComm.MvcUI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Core.Types;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ public class ProductController(IECommDb db) : Controller
     }
 
     [HttpGet("product/edit/{id}")]
+    [Authorize(Policy = "AdminsOnly")]
     public async Task<IActionResult> Edit(int id)
     {
         var product = await db.GetProduct(id, includeCategory: true);
@@ -46,6 +48,7 @@ public class ProductController(IECommDb db) : Controller
     }
 
     [HttpPost("product/edit/{id}")]
+    [Authorize(Policy = "AdminsOnly")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, ProductEditViewModel vm)
     {

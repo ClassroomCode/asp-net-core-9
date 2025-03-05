@@ -1,5 +1,7 @@
 using EComm.DataAccess;
 using EComm.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,17 @@ var connStr = builder.Configuration.GetConnectionString("EComm");
 if (connStr is null) throw new ApplicationException("Database connection string not found");
 
 builder.Services.AddScoped<IECommDb>(_ => ECommDbFactory.Create(connStr));
+
+builder.Services.AddAuthentication(
+    CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => {
+        options.LoginPath = "/login";
+    });
+
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("AdminsOnly", policy =>
+        policy.RequireClaim(ClaimTypes.Role, "Admin"));
+});
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
@@ -26,6 +39,7 @@ app.UseSession();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
