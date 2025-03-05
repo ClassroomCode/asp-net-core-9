@@ -1,4 +1,5 @@
 ﻿using EComm.Entities;
+using EComm.MvcUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -21,13 +22,16 @@ public class ProductController(IECommDb db) : Controller
     [HttpGet("product/edit/{id}")]
     public async Task<IActionResult> Edit(int id)
     {
-        var product = await db.GetProduct(id);
+        var product = await db.GetProduct(id, includeCategory: true);
         if (product is null)
         {
             return NotFound();
         }
+        var categories = await db.GetAllCategories();
 
-        return View(product);
+        var vm = new ProductEditViewModel();
+
+        return View(vm);
     }
 
     [HttpPost("product/edit/{id}")]

@@ -26,8 +26,14 @@ internal class ECommDb(string connStr) : DbContext, IECommDb
         return await Products.AsNoTracking().ToListAsync();  
     }
 
-    public async Task<Product?> GetProduct(int id)
+    public async Task<Product?> GetProduct(int id, bool includeCategory = false)
     {
+        if (includeCategory)
+        {
+            return await Products
+                .Include(p => p.Category)
+                .SingleOrDefaultAsync(p => p.Id == id);
+        }
         return await Products.FindAsync(id);
     }
 
@@ -48,5 +54,10 @@ internal class ECommDb(string connStr) : DbContext, IECommDb
     {
         var rowsAffected = await SaveChangesAsync();
         return (rowsAffected > 0);
+    }
+
+    public async Task<IEnumerable<Category>> GetAllCategories()
+    {
+        return await Categories.AsNoTracking().ToListAsync();
     }
 }
