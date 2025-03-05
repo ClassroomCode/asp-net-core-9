@@ -11,6 +11,9 @@ if (connStr is null) throw new ApplicationException("Database connection string 
 
 builder.Services.AddScoped<IECommDb>(_ => ECommDbFactory.Create(connStr));
 
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -18,6 +21,9 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
+app.UseSession();
+
 app.UseRouting();
 
 app.UseAuthorization();
