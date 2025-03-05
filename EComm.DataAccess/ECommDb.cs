@@ -15,8 +15,14 @@ internal class ECommDb(string connStr) : DbContext, IECommDb
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
 
-    public async Task<IEnumerable<Product>> GetAllProducts()
+    public async Task<IEnumerable<Product>> GetAllProducts(bool includeCategories = false)
     {
+        if (includeCategories)
+        {
+            return await Products.AsNoTracking()
+                .Include(p => p.Category)
+                .ToListAsync();
+        }
         return await Products.AsNoTracking().ToListAsync();  
     }
 

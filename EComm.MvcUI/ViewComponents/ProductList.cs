@@ -7,7 +7,7 @@ namespace EComm.MvcUI.ViewComponents
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var products = await db.GetAllProducts();
+            var products = await db.GetAllProducts(includeCategories: true);
             return View(products);
         }
     }
