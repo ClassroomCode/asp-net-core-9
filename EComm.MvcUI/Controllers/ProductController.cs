@@ -100,4 +100,11 @@ public class ProductController(IECommDb db) : Controller
 
         return PartialView("_AddedToCart", message);
     }
+
+    [HttpGet("product/cart")]
+    public IActionResult Cart()
+    {
+        var cart = ShoppingCart.GetFromSession(HttpContext.Session);
+        return View(cart);
+    }
 }
