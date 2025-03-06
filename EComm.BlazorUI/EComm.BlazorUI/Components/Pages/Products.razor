@@ -1,0 +1,27 @@
+﻿@page "/products"
+@using EComm.Entities
+@inject IECommDb Db
+
+<PageTitle>Products</PageTitle>
+
+@if (products is null)
+{
+    <p>Loading...</p>
+} else
+{
+    <ul>
+        @foreach (var p in products)
+        {
+            <li>@p.ProductName</li>
+        }
+    </ul>
+}
+
+@code {
+    private IEnumerable<Product>? products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await Db.GetAllProducts();
+    }
+}

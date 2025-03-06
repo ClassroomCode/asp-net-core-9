@@ -17,6 +17,8 @@ internal class ECommDb(string connStr) : DbContext, IECommDb
 
     public async Task<IEnumerable<Product>> GetAllProducts(bool includeCategories = false)
     {
+        await Task.Delay(5000);
+
         if (includeCategories)
         {
             return await Products.AsNoTracking()
