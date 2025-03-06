@@ -11,6 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options => {
+    options.AddPolicy(name: "AllowedOrigins",
+        builder => {
+            builder.WithOrigins("http://localhost:5228", "https://localhost:7200");
+        });
+});
+
 var connStr = builder.Configuration.GetConnectionString("EComm");
 if (connStr is null) throw new ApplicationException("Database connection string not found");
 
@@ -41,6 +48,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseOpenApi();
+
+app.UseCors("AllowedOrigins");
 
 app.MapControllers();
 

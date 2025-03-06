@@ -5,6 +5,11 @@ using EComm.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<HttpClient>(sp => new HttpClient
+{
+    BaseAddress = new Uri("http://localhost:5000")
+});
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
