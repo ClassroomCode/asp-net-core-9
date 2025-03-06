@@ -1,0 +1,41 @@
+﻿@page "/products2"
+@using EComm.Entities
+@rendermode InteractiveServer
+@inject IECommDb Db
+
+<PageTitle>Products</PageTitle>
+
+<button class="btn btn-primary" @onclick="GetProducts">Click me</button>
+
+<br/><br/>
+
+<button class="btn btn-primary" @onclick="IncNumber">Inc</button>
+
+<br />
+<br />
+
+@if (products is not null)
+{
+    <ul>
+        @foreach (var p in products)
+        {
+            <li>@p.ProductName</li>
+        }
+    </ul>
+}
+<p>@a</p>
+
+@code {
+    private IEnumerable<Product>? products;
+    private int a = 0;
+
+    private async Task GetProducts()
+    {
+        products = await Db.GetAllProducts();
+    }
+
+    private void IncNumber()
+    {
+        a++;
+    }
+}
