@@ -9,8 +9,14 @@ public class ProductController(ILogger<ProductController> logger, IECommDb db) :
     [HttpGet("/products")]
     //[Authorize(Policy = "AdminsOnly")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<List<Product>>> GetAllProducts() =>
-        (await db.GetAllProducts()).ToList();
+    public async Task<ActionResult<List<Product>>> GetAllProducts(int start = 0)
+    {
+        if (start == 0)
+        {
+            return (await db.GetAllProducts()).ToList();
+        }
+        return (await db.GetAllProductsByPage(start)).ToList();
+    }
 
     [HttpGet("/products/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]

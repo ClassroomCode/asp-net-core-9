@@ -62,4 +62,19 @@ internal class ECommDb(string connStr) : DbContext, IECommDb
     {
         return await Categories.AsNoTracking().ToListAsync();
     }
+
+    private const int PageSize = 2;
+
+    public async Task<IEnumerable<Product>> GetAllProductsByPage(int startIndex = 0, bool includeCategories = false)
+    {
+        if (includeCategories)
+        {
+            return await Products.AsNoTracking()
+                .Include(p => p.Category)
+                .Skip(startIndex)
+                .Take(PageSize)
+                .ToListAsync();
+        }
+        return await Products.AsNoTracking().Skip(startIndex).Take(PageSize).ToListAsync();
+    }
 }

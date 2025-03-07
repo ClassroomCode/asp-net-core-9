@@ -9,4 +9,6 @@ public interface IECommDb
     Task<bool> DeleteProduct(Product product);
 
     Task<IEnumerable<Category>> GetAllCategories();
+
+    Task<IEnumerable<Product>> GetAllProductsByPage(int startIndex = 0, bool includeCategories = false);
 }
