@@ -23,6 +23,8 @@ if (connStr is null) throw new ApplicationException("Database connection string 
 
 builder.Services.AddScoped<IECommDb>(_ => ECommDbFactory.Create(connStr));
 
+builder.Services.AddHostedService<TimedHostedService>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApiDocument(config =>
 {

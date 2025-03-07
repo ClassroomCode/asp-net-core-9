@@ -5,7 +5,9 @@
 
 <PageTitle>Counter</PageTitle>
 
-<button class="btn btn-primary" @onclick="GetProducts">Click me</button>
+<input @bind-value=q @oninput=@Autocomplete />
+
+@*<button class="btn btn-primary" @onclick="GetProducts">Click me</button>*@
 
 
 <br />
@@ -23,9 +25,15 @@
 
 @code {
     private IEnumerable<Product>? products;
+    private string q = "";
 
     private async Task GetProducts()
     {
         products = await Client.GetFromJsonAsync<Product[]>("products");
+    }
+
+    private async Task Autocomplete()
+    {
+        products = await Client.GetFromJsonAsync<Product[]>($"products/search?q={q}");
     }
 }
