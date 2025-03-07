@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EComm.API.Controllers;
 
@@ -16,6 +17,23 @@ public class ProductController(ILogger<ProductController> logger, IECommDb db) :
             return (await db.GetAllProducts()).ToList();
         }
         return (await db.GetAllProductsByPage(start)).ToList();
+    }
+
+    [HttpGet("/products/search")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<List<Product>>> ProductSearch(string q = "")
+    {
+        if (q.Length > 10) return BadRequest(new { Reason = "Query too long"});
+
+        var products = db.DefProducts;
+
+        var dr = products.Where(p => p.ProductName.StartsWith(q));
+
+        var r = await db.EnumerateProducts(dr);
+
+        return Ok(r);
     }
 
     [HttpGet("/products/{id}")]

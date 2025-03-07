@@ -6,6 +6,11 @@ Authorization: Basic YWJjMTIz
 
 ###
 
+GET {{EComm.API_HostAddress}}/products/search?q=M
+
+
+###
+
 @id=1
 GET {{EComm.API_HostAddress}}/products/{{id}}
 

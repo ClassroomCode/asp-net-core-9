@@ -77,4 +77,11 @@ internal class ECommDb(string connStr) : DbContext, IECommDb
         }
         return await Products.AsNoTracking().Skip(startIndex).Take(PageSize).ToListAsync();
     }
+
+    public IQueryable<Product> DefProducts => Products;
+
+    public async Task<IEnumerable<Product>> EnumerateProducts(IQueryable<Product> q)
+    {
+        return await q.ToListAsync();
+    }
 }

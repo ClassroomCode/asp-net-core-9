@@ -11,4 +11,7 @@ public interface IECommDb
     Task<IEnumerable<Category>> GetAllCategories();
 
     Task<IEnumerable<Product>> GetAllProductsByPage(int startIndex = 0, bool includeCategories = false);
+
+    IQueryable<Product> DefProducts { get; }
+    Task<IEnumerable<Product>> EnumerateProducts(IQueryable<Product> q);
 }
